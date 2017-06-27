@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body align="center">
+
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Password</th>
+			</tr>
+
+			<% @cdr_result.each do |row| %>
+			<tr>
+				<td><%=row['id']%></td>
+				<td><%=row['name']%></td>
+				<td><%=row['password']%></td>
+				<td><a href="/users/update/<%= row['id'] %>">Update</td>
+				<td><a href="/users/delete/<%= row['id'] %>">Delete</td>
+			</tr>
+			<%end%>
+		</table>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+<form action="/users/update" method="post">
+	<% @result.each do |row| %>
+	<input type="text" name="id" value="<%=row['id']%>">
+	<h1>Name</h1>
+	<input type="text" name="name" value="<%=row['name']%>">
+	<h1>Password</h1>
+	<input type="text" name="password" value="<%=row['password']%>">
+	<input type="submit" name="" value="Update">
+	<%end%>	
+</form>
