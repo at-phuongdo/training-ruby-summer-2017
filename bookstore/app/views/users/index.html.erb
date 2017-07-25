@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <button class="btn"><%= link_to 'AddUser', new_user_path, :class => 'link-to' %></button>
+    <div class="header">
+      <h1>Users</h1>
+    </div>
+    <table class="index">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Birthday</th>
+          <th>Avatar</th>
+          <th>Gender</th>
+          <th colspan="2">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%=render partial: 'user', collection: @users%>
+      </tbody>
+    </table>
+
+
+    
+    <ul class="pagination">
+      <li><%= link_to 'Previous', params[:page].to_i>1 ? users_path(page: (params[:page].to_i-1)) : users_path(page: 1)%></li>
+      <%for i in 1..@page%>
+      <li class="page-link"><a href="<%= users_path(page: i)%>" %><%= i%></a></li>
+      <%end%>
+      <li><%= link_to 'NextPage', params[:page].to_i<@page ? users_path(page: (params[:page].to_i+1)) : users_path(page: @page)%></li> 
+    </ul>
+    
+  </div>
+
+</body>
+</html>
