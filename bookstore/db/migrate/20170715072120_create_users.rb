@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :user_name
       t.string :email
       t.string :password_digest
+      t.string :password_confirm
       t.string :name
       t.integer :gender
       t.datetime :birthday
@@ -11,9 +12,10 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :image
       t.string :provider
       t.string :uid
-        t.string :confirm_token
-        t.datetime :confirm_token_send
-        t.datetime :confirm_token_at
+      t.string :confirm_token
+      t.datetime :confirm_token_send
+      t.datetime :confirm_token_at
+      t.string :reset_password_token
       t.timestamps
     end
   end

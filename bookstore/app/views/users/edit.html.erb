@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <h1>Edit User</h1>
+        <%= form_for @user, url: { method: "post", action: "update" }, html: { multipart: true }  do |f| %>
+        <%  if  @user.errors.any? %>
+        <div  id="error_explanation">
+          <h2>
+            <%= pluralize(@user.errors.count, "error")  %>  prohibited
+            this  user  from  being saved:
+          </h2>
+          <ul>
+            <%  @user.errors.full_messages.each do  |msg| %>
+            <li><%= msg %></li>
+            <%  end %>
+          </ul>
+        </div>
+        <%  end %>
+        <div class="field">
+          <%= f.label :user_name %><br>
+          <%= f.text_field :user_name, class: 'form-control' %>
+        </div>
+        <div class="field">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>  
+        <div class="field">
+          <%= f.label :email %><br>
+          <%= f.text_field :email , class: 'form-control'%>
+        </div>
+        <div class="field">
+          <%= f.label :birthday %><br>
+          <%= f.date_field :birthday , class: 'form-control'%>
+        </div>
+
+        <div class="field">
+          <%= f.label :gender %><br>
+          <%= f.text_field :gender, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :image %><br>
+          <%= f.file_field :image, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :provider %><br>
+          <%= f.text_field :provider , class: 'form-control'%>
+        </div>
+        <div class="actions">
+          <br>
+          <%= f.submit "Save", class: "btn btn-primary" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

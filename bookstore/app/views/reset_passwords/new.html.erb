@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h1>Reset Password</h1>
+
+      <%= form_for(:reset_password, url: reset_passwords_path)do |f| %>
+      <%= flash[:danger] %><br/>
+      <%= flash[:success] %><br/>
+      <%= flash[:error] %><br/>
+
+      <%= f.label :email %><br>
+      <%= f.text_field :email, class: 'form-control' %>
+      <%= f.submit "Reset password", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+</body>
+</html>

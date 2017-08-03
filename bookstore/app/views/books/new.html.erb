@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h1>New Book</h1>
+      <%= form_for @book, method: :post, url: books_url, html: { multipart: true }  do |f| %>
+      <%  if  @book.errors.any? %>
+      <div  id="error_explanation">
+        <h2>
+          <%= pluralize(@book.errors.count, "error")  %>  prohibited
+          this  book  from  being saved:
+        </h2>
+        <ul>
+          <%  @book.errors.full_messages.each do  |msg| %>
+          <li><%= msg %></li>
+          <%  end %>
+        </ul>
+      </div>
+      <%  end %>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>  
+
+      <div class="field">
+        <%= f.label :author %><br>
+        <%= f.text_field :author , class: 'form-control'%>
+      </div>
+
+      <div class="field">
+        <%= f.label :title %><br>
+        <%= f.text_field :title , class: 'form-control'%>
+      </div>
+
+      <div class="field">
+        <%= f.label :image %><br>
+        <%= f.file_field :image, class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :isn %><br>
+        <%= f.text_field :isn , class: 'form-control'%>
+      </div>
+      <div class="actions">
+      <br>
+        <%= f.submit "Add", class: "btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+</body>
+</html>

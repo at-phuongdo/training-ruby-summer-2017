@@ -3,6 +3,7 @@
 # Table name: books
 #
 #  id         :integer          not null, primary key
+#  image      :string(255)
 #  author     :string(255)
 #  name       :string(255)
 #  title      :string(255)
@@ -12,6 +13,7 @@
 #
 
 class Book < ApplicationRecord
+  mount_uploader :image, ImageUploader
   has_many :comments
   has_many :orders
   has_many :carts, through: :orders

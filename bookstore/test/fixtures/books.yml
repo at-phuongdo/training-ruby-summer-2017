@@ -3,6 +3,7 @@
 # Table name: books
 #
 #  id         :integer          not null, primary key
+#  image      :string(255)
 #  author     :string(255)
 #  name       :string(255)
 #  title      :string(255)

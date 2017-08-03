@@ -10,62 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717074051) do
+ActiveRecord::Schema.define(version: 20170727035407) do
 
-  create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "author"
-    t.string   "name"
-    t.string   "title"
-    t.string   "isn"
+  create_table "books", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "image"
+    t.string "author"
+    t.string "name"
+    t.string "title"
+    t.string "isn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "user_id"
+  create_table "carts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_carts_on_user_id", using: :btree
+    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
-  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "content",    limit: 65535
-    t.string   "image"
-    t.integer  "user_id"
-    t.integer  "book_id"
-    t.integer  "rating"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.index ["book_id"], name: "index_comments_on_book_id", using: :btree
-    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
-  end
-
-  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "quantity"
-    t.integer  "cart_id"
-    t.integer  "book_id"
+  create_table "comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_orders_on_book_id", using: :btree
-    t.index ["cart_id"], name: "index_orders_on_cart_id", using: :btree
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "user_name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.string   "name"
-    t.integer  "gender"
+  create_table "orders", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "quantity"
+    t.integer "cart_id"
+    t.integer "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_orders_on_book_id"
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
+  end
+
+  create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "user_name"
+    t.string "email"
+    t.string "password_digest"
+    t.string "password_confirm"
+    t.string "name"
+    t.integer "gender"
     t.datetime "birthday"
-    t.integer  "role",               default: 0
-    t.string   "image"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "confirm_token"
+    t.integer "role", default: 0
+    t.string "image"
+    t.string "provider"
+    t.string "uid"
+    t.string "confirm_token"
     t.datetime "confirm_token_send"
     t.datetime "confirm_token_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string "reset_password_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

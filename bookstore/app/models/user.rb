@@ -2,22 +2,24 @@
 #
 # Table name: users
 #
-#  id                 :integer          not null, primary key
-#  user_name          :string(255)
-#  email              :string(255)
-#  password_digest    :string(255)
-#  name               :string(255)
-#  gender             :integer
-#  birthday           :datetime
-#  role               :integer          default(0)
-#  avatar             :string(255)
-#  provider           :string(255)
-#  uid                :string(255)
-#  confirm_token      :string(255)
-#  confirm_token_send :datetime
-#  confirm_token_at   :datetime
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id                   :integer          not null, primary key
+#  user_name            :string(255)
+#  email                :string(255)
+#  password_digest      :string(255)
+#  password_confirm     :string(255)
+#  name                 :string(255)
+#  gender               :integer
+#  birthday             :datetime
+#  role                 :integer          default(0)
+#  image                :string(255)
+#  provider             :string(255)
+#  uid                  :string(255)
+#  confirm_token        :string(255)
+#  confirm_token_send   :datetime
+#  confirm_token_at     :datetime
+#  reset_password_token :string(255)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 
 class User < ApplicationRecord
@@ -25,14 +27,16 @@ class User < ApplicationRecord
   # has_secure_password
 
   has_secure_password
+  has_secure_token :confirm_token
   enum gender: %w[male female other]
   validates :user_name, :email, uniqueness: true
-  validates :user_name, :password, presence: true
+  validates :user_name, :password, presence: true, on: :create
   validates :email, presence: true, if: proc { provider == 'email' }
   validates :name, length: { in: 6..30 }, allow_blank: true
   validate :birthday_format
   validate :avatar_size
   validates :uid, uniqueness: { scope: :provider }, allow_blank: true
+  # validates :confirmation_token
 
   has_many :my_carts, class_name: 'Cart'
   has_many :carts # tra ve mang, has_one :cart #tra ve doi tuong
@@ -60,5 +64,36 @@ class User < ApplicationRecord
 
   def birthday_format
     errors.add(:birthday, 'You should be over 16 years old.') if birthday.present? && Time.now - 16.years < birthday
+  end
+
+  # def confirmation_token
+  #   confirm_token = SecureRandom.urlsafe_base64.to_s if confirm_token.blank?
+  # end
+  class << self
+    def new_token
+      SecureRandom.urlsafe_base64.to_s
+    end
+  end
+
+  def email_activate
+    if confirm_token_send + 15.second >= Time.now
+      update(confirm_token_at: Time.now)
+    else
+      new_email_token = User.new_token
+      update(confirm_token: new_email_token)
+    end
+  end
+
+  def create_reset_password_token
+    password_token = User.new_token
+    update(reset_password_token: password_token)
+  end
+
+  def send_reset_password_token
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def send_activation_email
+    UserMailer.welcome_email(self).deliver_now
   end
 end

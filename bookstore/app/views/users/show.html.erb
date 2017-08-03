@@ -1,26 +1,50 @@
-<table class="show">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Username</th>
-      <th>Password</th>
-      <th>Email</th>
-      <th>Birthday</th>
-      <th>Gender</th>
-    </tr>
-  </thead>
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <td><button class="btn"><%= link_to 'AddUser', new_user_path %></button></td>
+    <table class="show">
+     
+      
+      
+      <tr>
+        <td>Avatar</td>
+        <td><%= image_tag @user.image.thumb.url if @user.image? %></td>
+      </tr>
 
-  <tbody>
-    
-    <tr>
-      <td><%= @user.name %></td>
-      <td><%= @user.user_name %></td>
-      <td><%= @user.password %></td>
-      <td><%= @user.email %></td>
-      <td><%= @user.birthday %></td>
-      <td><%= @user.gender %></td>
-    </tr>
-  
-  </tbody>
-</table>
-<%= link_to 'AddUser', new_user_path %>
+      <tr>
+        <td>Name</td>
+        <td><%= @user.name %></td>
+      </tr>
+
+      <tr>
+        <td>Username</td>
+        <td><%= @user.user_name %></td>
+      </tr>
+
+      <tr>
+        <td>Email</td>
+        <td><%= @user.email %></td>
+      </tr>
+
+      <tr>
+        <td>Birthday</td>
+        <td><%= @user.birthday %></td>
+      </tr>
+
+      <tr>
+        <td>Gender</td>
+        <td><%= @user.gender %></td>
+      </tr>
+
+    </table>
+    <td><button class="btn"><%= link_to 'Back', users_path %></button></td>
+  </div>
+
+</body>
+</html>
+
